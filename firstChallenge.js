@@ -19,11 +19,10 @@ class User {
         console.log(`${this.name} ${amount === 0 ? 'no tiene mascotas': text}`);
     }
     addBook(book, author){
-        this.books.push({book: book, author: author})
+        this.books.push({book, author})
     }
     getBooksNames(){
-        const arrayNameBooks =  this.books.map((e) => e.book);
-        console.log(arrayNameBooks);
+        console.log(this.books.map((e) => e.book))
     }
 }
 const user = new User('Jorge', 'Gutierres')
