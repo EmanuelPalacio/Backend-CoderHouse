@@ -60,6 +60,16 @@ class Contenedor {
             return []
         }
     }
+    //obtener un objecto random del array
+    async getRandom() {
+        try {
+            const data = await fs.promises.readFile(this.ruta, 'utf8')
+            const parseData = JSON.parse(data)
+            return parseData[Math.floor(Math.random() * (parseData.length))]
+        } catch (error) {
+            return []
+        }
+    }
 
     //function para obtener un objeto por ID
     //TODO: Validar que devuelva el null
