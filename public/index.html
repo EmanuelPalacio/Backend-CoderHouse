@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/style.css">
+  <title>Formulario</title>
+</head>
+<body>
+    <form action="http://localhost:8080/api/productos" method="post" target="_top">
+      <input type="text" name="tittle" placeholder="nombre del producto" required>
+      <input type="number" name="price" placeholder="precio del producto" required>
+      <input type="text" name="thumbnail" placeholder="pegar url de la imagen" required>
+      <button>enviar</button>
+    </form>
+</body>
+</html>

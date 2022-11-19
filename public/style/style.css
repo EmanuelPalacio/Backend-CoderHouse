@@ -1,0 +1,32 @@
+*{
+  font-size: 1.2rem;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+body form{
+  display: inherit;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+input {
+  text-align: center;
+  height: 50px;
+  width: 600px;
+  border-radius: 50px ;
+  border: none;
+  border-bottom: 4px solid rgb(120, 230, 110);
+  outline: none;
+}
+button{
+  height: 50px;
+  width: 300px;
+  border-radius: 50px ;
+  background-color: rgb(120, 230, 110);
+  border: none;
+}
