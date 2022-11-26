@@ -11,7 +11,6 @@ import { Router } from "express";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const routerProductos = Router();
 const products = [
   {
@@ -46,7 +45,9 @@ const products = [
 
 //obtener array de productos
 routerProductos.get("/", (req, res) => {
-  res.render("products", { products });
+  products.length == 0
+    ? res.send("<h1>No hay productos</h1>")
+    : res.render("products", { products });
 });
 
 //agregar un nuevo producto
@@ -59,8 +60,7 @@ routerProductos.post("/", (req, res) => {
     id: products.length + 1,
   };
   products.push(obj);
-  res.status(201).json(obj);
-  console.log(obj);
+  res.status(201).redirect("/api/productos");
 });
 
 //consultar por un producto especifico del array
