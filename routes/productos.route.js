@@ -52,9 +52,9 @@ routerProductos.get("/", (req, res) => {
 
 //agregar un nuevo producto
 routerProductos.post("/", (req, res) => {
-  const { tittle, price, thumbnail } = req.body;
+  const { title, price, thumbnail } = req.body;
   const obj = {
-    tittle,
+    title,
     price,
     thumbnail,
     id: products.length + 1,
