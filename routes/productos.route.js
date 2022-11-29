@@ -8,8 +8,6 @@ b-Una vista de los productos cargados (utilizando plantillas de handlebars) en l
 c-Ambas páginas contarán con un botón que redirija a la otra.
  */
 import { Router } from "express";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
 
 const routerProductos = Router();
 const products = [
@@ -52,9 +50,9 @@ routerProductos.get("/", (req, res) => {
 
 //agregar un nuevo producto
 routerProductos.post("/", (req, res) => {
-  const { tittle, price, thumbnail } = req.body;
+  const { title, price, thumbnail } = req.body;
   const obj = {
-    tittle,
+    title,
     price,
     thumbnail,
     id: products.length + 1,

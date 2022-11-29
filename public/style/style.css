@@ -1,20 +1,21 @@
 *{
   font-size: 1.2rem;
 }
-.body{
+body{
   display: flex;
+  
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-.form{
+form{
   display: inherit;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 30px;
 }
-.input {
+input {
   text-align: center;
   height: 50px;
   width: 600px;
@@ -23,7 +24,7 @@
   border-bottom: 4px solid rgb(120, 230, 110);
   outline: none;
 }
-.btn{
+button{
   height: 50px;
   width: 300px;
   border-radius: 50px ;
