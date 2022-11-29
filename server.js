@@ -30,6 +30,7 @@ app.engine(
 app.set("view engine", "hbs");
 // se establece donde se encuetran los archivos
 app.set("views", join(__dirname, "public/views"));
+app.use(express.static("public"));
 app.listen(PORT, (error) => {
   if (error) {
     console.log(`erro al escuchar el puerto ${PORT}, error: ${error}`);

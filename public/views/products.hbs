@@ -1,6 +1,11 @@
 <h1>Tienda de productos</h1>
+<button id="formButton">cargar productos</button>
+<ul>
 {{#each products}}
+<li>
 <h2>{{title}}</h2>
 <img src="{{thumbnail}}" alt="" width="100">
 <p>{{price}}</p>
+</li>
 {{/each}}
+</ul>

@@ -51,16 +51,15 @@ routerProductos.get("/", (req, res) => {
 
 //agregar un nuevo producto
 routerProductos.post("/", (req, res) => {
-  const { tittle, price, thumbnail } = req.body;
+  const { title, price, thumbnail } = req.body;
   const obj = {
-    tittle,
+    title,
     price,
     thumbnail,
     id: products.length + 1,
   };
   products.push(obj);
-  res.status(201).json(obj);
-  console.log(obj);
+  res.render("products", { products });
 });
 
 //consultar por un producto especifico del array
