@@ -5,16 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../style/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../../js/listaProductos.js" defer></script>
+    <script type="module" src="../../js/chat.js" defer></script>
     <title>Tienda</title>
 </head>
 <body>
-    {{{body}}}
+    <div>
+      {{{body}}}
+    </div>
 </body>
-<script>
-  const formButton = document.getElementById("formButton");
-  formButton.addEventListener("click", () => {
-    window.location = "/";
-  });
-
-</script>
 </html>

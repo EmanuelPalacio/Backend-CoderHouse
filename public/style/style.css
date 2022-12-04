@@ -1,13 +1,36 @@
 *{
   font-size: 1.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 body{
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+body > div > section {
+  display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  background-color: #cfd0d1;
+  padding: 50px 100px;
+  border-radius: 50px;
+  margin: 0 0 100px 0;
+  width: 1000px;
+} 
+
+h1, h2{
+  color: #3036fd;
+  align-self: flex-start;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 25px 0;
 }
+
 body form{
   display: inherit;
   flex-direction: column;
@@ -16,33 +39,61 @@ body form{
   gap: 30px;
 }
 input {
-  text-align: center;
+  text-align: start;
   height: 50px;
-  width: 600px;
-  border-radius: 50px ;
+  width: 570px;
+  padding-left: 30px;
+  border-radius: 10px ;
   border: none;
-  border-bottom: 4px solid rgb(120, 230, 110);
   outline: none;
 }
 button{
   height: 50px;
-  width: 300px;
-  border-radius: 50px ;
-  background-color: rgb(120, 230, 110);
+  width: 150px;
+  border-radius: 10px ;
+  background-color: #28a745;
   border: none;
+  align-self: flex-start;
+}
+/* lista productos */
+.tittles{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  color: white;
+  margin-top: 50px;
+  background-color: #353a41;
+  border-bottom: 1px solid white;
+  padding: 0 10px;
+}
+#listProducts {
+  width: 100%;
+  background-color: #353a41;
 }
 
-ul{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  
-}
-li{
+#listProducts  >li{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 30px;
-  background-color: rgb(120, 230, 110);
+  width: 100%;
+  height: 80px;
+  color: white;
+  border-bottom: 1px solid white;
+  padding: 0 10px;
+}
+#listProducts >li img{
+  height: 50px;
+  width: 50px;
+}
+
+#listMessage li p{
+  color: #3036fd;
+}
+#listMessage li p span:nth-child(1){
+  color: #b6573d;
+}
+#listMessage li p span:nth-child(2){
+  color: #5a9f66;
 }
