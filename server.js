@@ -1,4 +1,5 @@
 import express, { json, urlencoded } from "express";
+import fs from "fs";
 import { Server as IOServer } from "socket.io";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -11,7 +12,14 @@ const __dirname = dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 const products = [];
-const message = [];
+const messages = [];
+const data = JSON.parse(fs.readFileSync("./chat.txt", "utf-8"));
+
+data.legth !== 0 &&
+  data.forEach((element) => {
+    console.log(element);
+    messages.push(element);
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -57,12 +65,16 @@ io.on("connection", (socket) => {
     io.emit("server:product", products);
   });
   //lo mismo pero para mensajes
-  socket.emit("server:message", message);
+  socket.emit("server:message", messages);
   // Nos ponesmo a escuchar el evento "client:message" que recibe la info de un mensaje
   socket.on("chat:messageInfo", (messageInfo) => {
     // Actualizamos nuestro arreglo de mensajes
-    message.push(messageInfo);
+    messages.push(messageInfo);
+
+    //Guardar mensajes
+    fs.writeFileSync("./chat.txt", JSON.stringify(messages));
+
     // Emitimos a TODOS los sockets conectados el arreglo de mensajes actualizado
-    io.emit("server:message", message);
+    io.emit("server:message", messages);
   });
 });

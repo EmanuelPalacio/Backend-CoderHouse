@@ -1,4 +1,3 @@
-/* import moment from "moment"; */ //revisar porque no me deja utlizar moment
 const messageForm = document.getElementById("messageForm");
 const emailInput = document.getElementById("email");
 const messageInput = document.getElementById("message");
