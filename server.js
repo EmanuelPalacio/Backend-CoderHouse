@@ -1,25 +1,15 @@
 import express, { json, urlencoded } from "express";
-import fs from "fs";
 import { Server as IOServer } from "socket.io";
 import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import path, { dirname, join } from "path";
 //platilla handlebards
 import { engine } from "express-handlebars";
+import Contenedor from "./api.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
 const app = express();
 const PORT = process.env.PORT || 3000;
-const products = [];
-const messages = [];
-const data = JSON.parse(fs.readFileSync("./chat.txt", "utf-8"));
-
-data.legth !== 0 &&
-  data.forEach((element) => {
-    console.log(element);
-    messages.push(element);
-  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,6 +32,31 @@ app.set("view engine", "hbs");
 app.set("views", join(__dirname, "public/views"));
 app.use(express.static("public"));
 
+const productApi = new Contenedor(
+  {
+    client: "mysql",
+    connection: {
+      host: "127.0.0.1",
+      user: "root",
+      password: "",
+      database: "mibase",
+    },
+    pool: { min: 0, max: 7 },
+  },
+  "product"
+);
+
+const messageApi = new Contenedor(
+  {
+    client: "sqlite3",
+    connection: {
+      filename: path.resolve(__dirname, "./database/coderhouse.sqlite"),
+    },
+    useNullAsDefault: true,
+  },
+  "message"
+);
+
 const expressServer = app.listen(PORT, (error) => {
   if (error) {
     console.log(`erro al escuchar el puerto ${PORT}, error: ${error}`);
@@ -52,29 +67,25 @@ const expressServer = app.listen(PORT, (error) => {
 
 const io = new IOServer(expressServer);
 
-io.on("connection", (socket) => {
-  // Logeamos el id del socket que se conecto
+io.on("connection", async (socket) => {
   console.log(`New connection, socket ID: ${socket.id}`);
-  // Cuando se conecta un nuevo cliente le emitimos a ese cliente todos los mensajes que se mandaron hasta el momento
-  socket.emit("server:product", products);
-  // Nos ponesmo a escuchar el evento "client:product" que recibe la info de un mensaje
-  socket.on("product:info", (productInfo) => {
-    // Actualizamos nuestro arreglo de mensajes
-    products.push(productInfo);
-    // Emitimos a TODOS los sockets conectados el arreglo de mensajes actualizado
-    io.emit("server:product", products);
+
+  socket.emit("server:product", await productApi.getAll());
+
+  socket.on("product:info", async (productInfo) => {
+    await productApi.save({
+      title: productInfo.title,
+      price: Number(productInfo.price),
+      thumbnail: productInfo.thumbnail,
+    });
+
+    io.emit("server:product", await productApi.getAll());
   });
-  //lo mismo pero para mensajes
-  socket.emit("server:message", messages);
-  // Nos ponesmo a escuchar el evento "client:message" que recibe la info de un mensaje
-  socket.on("chat:messageInfo", (messageInfo) => {
-    // Actualizamos nuestro arreglo de mensajes
-    messages.push(messageInfo);
 
-    //Guardar mensajes
-    fs.writeFileSync("./chat.txt", JSON.stringify(messages));
+  socket.emit("server:message", await messageApi.getAll());
 
-    // Emitimos a TODOS los sockets conectados el arreglo de mensajes actualizado
-    io.emit("server:message", messages);
+  socket.on("chat:messageInfo", async (messageInfo) => {
+    await messageApi.save({ ...messageInfo, time: Date.now() });
+    io.emit("server:message", await messageApi.getAll());
   });
 });

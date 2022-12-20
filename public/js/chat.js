@@ -10,11 +10,10 @@ const sendMessage = (productInfo) => {
 };
 
 const renderMessage = (chatData) => {
-  const date = new Date().toLocaleString("es-AR");
   const html = chatData.map((messageInfo) => {
     console.log(messageInfo);
     return `<li>
-              <p>${messageInfo.email}<span>[${date}]</span>:<span>${messageInfo.message}</span>
+              <p>${messageInfo.username}<span>[${messageInfo.time}]</span>:<span>${messageInfo.message}</span>
               </p>
             </li>`;
   });
@@ -29,7 +28,7 @@ const submitHandlerMessage = (event) => {
 
   // Definimos la informacion del mensaje, es un obejto con una propiedad "username" y "message"
   const messageInfo = {
-    email: emailInput.value,
+    username: emailInput.value,
     message: messageInput.value,
   };
 
