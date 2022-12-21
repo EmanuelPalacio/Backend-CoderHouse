@@ -13,9 +13,8 @@ const sendProduct = (productInfo) => {
 
 const renderProduct = (productData) => {
   const html = productData.map((productInfo) => {
-    console.log(productInfo);
     return `<li>
-              <span>${productInfo.name}</span>
+              <span>${productInfo.title}</span>
               <span>${productInfo.price}</span>
               <img src=${productInfo.thumbnail} />
             </li>`;
@@ -31,11 +30,10 @@ const submitHandler = (event) => {
 
   // Definimos la informacion del mensaje, es un obejto con una propiedad "username" y "message"
   const productInfo = {
-    name: productInput.value,
+    title: productInput.value,
     price: priceInput.value,
     thumbnail: imgInput.value,
   };
-
   // Ejecutamos la funcion sendProduct() que la encargada de enviar el profucto al back pasandole como parametro la informacion del mensaje
   sendProduct(productInfo);
 

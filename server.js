@@ -85,7 +85,10 @@ io.on("connection", async (socket) => {
   socket.emit("server:message", await messageApi.getAll());
 
   socket.on("chat:messageInfo", async (messageInfo) => {
-    await messageApi.save({ ...messageInfo, time: Date.now() });
+    await messageApi.save({
+      ...messageInfo,
+      time: Date().toLocaleString("es-AR"),
+    });
     io.emit("server:message", await messageApi.getAll());
   });
 });
