@@ -5,8 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon .",
-    "create-table": "node ./migrations/message.table.js && node ./migrations/product.table.js"
+    "start": "nodemon ."
   },
   "repository": {
     "type": "git",
